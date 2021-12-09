@@ -1,0 +1,23 @@
+version: '3.5'
+
+services:
+  utopia-cms:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    command: "python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - $PWD:/utopia-cms
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+  db:
+    image: mariadb:10.4.8
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+    - MYSQL_ROOT_PASSWORD=test
+    - MYSQL_DATABASE=test
+    - MYSQL_USER=test
+    - MYSQL_PASSWORD=test
