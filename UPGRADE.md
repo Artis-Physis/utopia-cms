@@ -1,3 +1,44 @@
+# From version 0.1.9 to 0.2.0
+
+```
+git pull
+git checkout 0.2.0
+# activate your virtual env
+./manage.py migrate
+```
+
+# From version 0.1.8 to 0.1.9
+
+```
+git pull
+git checkout 0.1.9
+# activate your virtual env
+pip install django-elasticsearch-dsl
+```
+
+# From version 0.1.7 to 0.1.8
+
+```
+git pull
+git checkout 0.1.8
+cd portal
+# activate your virtual env
+./manage.py migrate core
+```
+
+# From version 0.1.6 to 0.1.7
+
+```
+git pull
+git checkout 0.1.7
+cd portal
+# activate your virtual env
+./manage.py migrate
+./manage.py dbshell
+-- inside the dbshell run this sentence to fix non-published articles (if any):
+UPDATE core_article SET date_published=NULL WHERE NOT is_published;
+```
+
 # From version 0.1.5 to 0.1.6
 
 ```

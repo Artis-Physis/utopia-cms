@@ -1,3 +1,36 @@
+# version 0.2.0 (2022-02-01)
+
+- Inner sections support for category detail view.
+- Custom section detail templates support by settings.
+- Gruped tags new app allows grouping tags for customizations.
+- CSS updates and not ascii char error fixed.
+- More customization flexibility support on rendering dates in article cards.
+
+# version 0.1.9 (2022-01-27)
+
+- Elasticsearch support in search app.
+- Many important improvements in core.models.update_category_home function.
+- Allow more flexibility when using some of the custom child templates that can be configured by settings.
+- Templates and template tags used to render home 'row' components were improved with minor fixes, todo's and features.
+- Remove position holes after saving a CategoryHome using the admin.
+- Performance improvement for audio stats in dashboard app.
+- General improvements: de-customizations, syntax code style, UX, some method features using optional args.
+
+# version 0.1.8 (2022-01-08)
+
+- Fix one context variable value assignation between template tags rendering.
+- Uniqueness added on (home, position) columns in categoryhomearticle relation.
+
+# version 0.1.7 (2022-01-03)
+
+- Tests documentation improvements.
+- Edition headers feature.
+- Improvements to display the published date in article cards.
+- Support to hide the photographer in article cards.
+- Many improvements, fixes and de-customizations in UX, migrations, modules and templates.
+- Performance improvements in some raw SQL sentences.
+- UX support to "read-later" articles from the article card.
+
 # version 0.1.6 (2021-12-03)
 
 - Cleaned custom values and unused fields in some migrations and models.

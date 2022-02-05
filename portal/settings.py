@@ -64,6 +64,7 @@ INSTALLED_APPS = (
     'tagging',
     'core.config.CoreConfig',
     'core.attachments',
+    'groupedtags.config.GroupedTagsConfig',
     'django_extensions',
     'generator',
     'memcached',
@@ -80,6 +81,7 @@ INSTALLED_APPS = (
     'photologue_ladiaria',
     'robots',
     'search',
+    'django_elasticsearch_dsl',
     'sorl.thumbnail',
     'shorturls',
     'less',
@@ -229,7 +231,7 @@ HOME_PUBLICATIONS = []
 
 HASHIDS_SALT = 'top_secret_salt_phrase'
 
-# A dictionary of urlconf module paths, keyed by their subdomain.
+# A dictionary of urlconf module paths, keyed by their subdomain
 SUBDOMAIN_URLCONFS = {
     None: 'urls',  # no subdomain, e.g. ``example.com``
 }
@@ -284,6 +286,7 @@ TEMPLATES = [
                 'context_processors.publications',
                 'context_processors.gtm',
                 'context_processors.main_menus',
+                'context_processors.article_content_type',
                 'django.template.context_processors.static',
                 'apps.core.context_processors.aniosdias',
                 'social_django.context_processors.backends',
@@ -321,6 +324,13 @@ SENDNEWSLETTER_LOGFILE = '/var/log/utopiacms/sendnewsletter/%s-%s.log'
 # background tasks
 MAX_ATTEMPTS = 1
 
+# Elasticsearch is disabled by default, to enable it you need to adjust this settings according to your Elasticsearch
+# installation, see https://django-elasticsearch-dsl.readthedocs.io/en/latest/quickstart.html#install-and-configure
+ELASTICSEARCH_DSL = {}
+ELASTICSEARCH_DSL_AUTOSYNC = False
+SEARCH_ELASTIC_MATCH_PHRASE = False
+SEARCH_ELASTIC_USE_FUZZY = False  # Ignored when previous setting is True (not allowed by Elasticsearch).
+
 # core
 # publications that use the root url as their home page
 CORE_PUBLICATIONS_USE_ROOT_URL = [DEFAULT_PUB]
@@ -342,6 +352,19 @@ CORE_ARTICLE_TYPES = (
     (CORE_HTML_ARTICLE, 'HTML'),
     (CORE_COMUNIDAD_ARTICLE, 'COMUNIDAD'),
 )
+# Supplement names
+CORE_SUPPLEMENT_NAME_CHOICES = ()
+
+# shows "ago" timedeltas in article cards
+CORE_ARTICLE_CARDS_DATE_PUBLISHED_USE_AGO = True
+# shows a date tooltip in article detail, override to False to disable the tooltip
+CORE_ARTICLE_DETAIL_DATE_TOOLTIP = True
+# shows the date tooltip in article detail for all dates (if prevoius setting is enabled)
+# override to False to show the tooltip only since "Yesterday" dates
+CORE_ARTICLE_DETAIL_ALL_DATE_TOOLTIP = True
+
+# show or hide photo credits in article cards
+CORE_ARTICLE_ENABLE_PHOTO_BYLINE = True
 
 # enable related articles in article detail
 CORE_ENABLE_RELATED_ARTICLES = True
@@ -472,7 +495,7 @@ except ImportError as e:
 
 FREEZE_TIME = None
 
-# Override previous settings with values in local_settings.py settings file.
+# Override previous settings with values in local_settings.py settings file
 from local_settings import *
 
 SITE_URL = '%s://%s/' % (URL_SCHEME, SITE_DOMAIN)
