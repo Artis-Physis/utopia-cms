@@ -2,7 +2,7 @@
 from datetime import datetime
 
 
-INTERNAL_IPS = ('127.0.0.1', '0.0.0.0', '*')
+INTERNAL_IPS = ('127.0.0.1', '0.0.0.0', 'localhost', '*')
 REMOTE_ADDR = ('*')
 
 DEBUG = True
@@ -17,7 +17,7 @@ SECRET_KEY = ''
 CLOSED_SITE = False
 SITE_DOMAIN = "yoogle.com"
 SESSION_COOKIE_DOMAIN = "." + SITE_DOMAIN
-ALLOWED_HOSTS = [SESSION_COOKIE_DOMAIN]
+ALLOWED_HOSTS = [SESSION_COOKIE_DOMAIN, '0.0.0.0', 'localhost', '127.0.0.1']
 
 COMPRESS_OFFLINE = False
 COMPRESS_ENABLED = True
@@ -42,6 +42,7 @@ DATABASES = {
         'NAME': 'utopiacms',
         'USER': 'utopiacms_user',
         'PASSWORD': 'password',
+        'HOST': 'db2',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
         },
@@ -58,7 +59,7 @@ DATETIME_FORMAT = '%s %s' % (DATE_FORMAT, TIME_FORMAT)
 SHORT_DATE_FORMAT = 'd/m/Y'
 
 STATICFILES_DIRS = (
-    '/home/user/utopia-cms/static',
+    '/utopia-cms/static',
 )
 
 STATICFILES_FINDERS = (
@@ -81,7 +82,7 @@ EMAIL_CONFIRMATION_TIMEOUT_DAYS = 3
 
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
-SENDNEWSLETTER_LOGFILE = '/home/user/utopia-cms-data/sendnewsletter/%s-%s.log'
+SENDNEWSLETTER_LOGFILE = 'utopia-cms-data/sendnewsletter/%s-%s.log'
 
 LAST_OLD_DAY = datetime(2013, 6, 15)
 EMAIL_EDITION_NUMBER_OFFSET = 0

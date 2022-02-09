@@ -20,8 +20,8 @@ if APPS_DIR not in sys.path:
 SITE_ROOT = dirname(realpath(__file__))
 STATIC_URL = '/static/'
 STATIC_ROOT = '%s/static/' % SITE_ROOT
-SITE_DOMAIN = 'example.com'
-URL_SCHEME = "https"
+SITE_DOMAIN = 'localhost:8000'
+URL_SCHEME = "http"
 DEFAULT_URL_SCHEME = URL_SCHEME
 
 # django-mobile
@@ -45,6 +45,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 INSTALLED_APPS = (
@@ -474,7 +475,8 @@ SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 COMPRESS_PRECOMPILERS = (
     ('text/less', 'lessc {infile} {outfile}'),
-    ('text/x-scss', 'sass --scss {infile} {outfile}'),
+
+    ('text/x-scss', 'django_libsass.SassCompiler'),
 )
 
 BLEACH_STRIP_TAGS = True
