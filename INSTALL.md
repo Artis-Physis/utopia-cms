@@ -1,6 +1,7 @@
 # Utopia Content Management System Installation
 
 Documentation about installing Utopia's CMS.
+## Docker at the end
 
 ## Install requirements
 
@@ -88,3 +89,34 @@ NOTE: If you change the default `settings.DEFAULT_PUB` value from `default` to a
 `UPDATE auth_permission SET codename='es_suscriptor_otherslug' WHERE codename='es_suscriptor_default';`
 
 Point your preferred web browser to https://yoogle.com/admin/sites/site/1/ and you will be redirected to the Django's admin site login page, after login you will be redirected again to the default site change form, change its domain to `yoogle.com` and optionally also change its display name to any name you want, save the changes and then go to https://yoogle.com/admin/core/publication/add/ fill the form to create the new publication, save it and then you will be able to see the home page working at https://yoogle.com/.
+
+## Docker install
+
+user@host:~/utopia-cms $ docker-compose up
+
+on another terminal in the same route run
+
+user@host:~/utopia-cms $ docker-compose exec utopia-cms bash
+inside that bash terminal run:
+
+git submodule update --init
+
+```
+(utopiacms) user@host:~/utopia-cms $ cd portal
+(utopiacms) user@host:~/utopia-cms/portal $ cp local_settings_sample.py local_settings.py
+(utopiacms) user@host:~/utopia-cms/portal $ vim portal/local_settings.py
+```
+
+- Create needed tables using Django's `migrate` management command twice, without and with the `--run-syncdb` argument:
+
+```
+(utopiacms) user@host:~/utopia-cms/portal $ python -W ignore manage.py migrate
+(utopiacms) user@host:~/utopia-cms/portal $ python -W ignore manage.py migrate --run-syncdb
+```
+
+- Create a Django superuser and collect static files using this commands:
+
+```
+(utopiacms) user@host:~/utopia-cms/portal $ python -W ignore manage.py createsuperuser
+(utopiacms) user@host:~/utopia-cms/portal $ python -W ignore manage.py collectstatic --noinput
+```
